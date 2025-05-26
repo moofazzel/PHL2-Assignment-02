@@ -13,22 +13,15 @@ CREATE TABLE species (
     common_name VARCHAR(100) NOT NULL,
     scientific_name VARCHAR(100) NOT NULL,
     discovery_date DATE,
-    conservation_status VARCHAR(50) CHECK (
-        conservation_status IN (
-            'Endangered',
-            'Vulnerable',
-            'Least Concern',
-            'Extinct'
-        )
-    )
+    conservation_status VARCHAR(50) NOT NULL
 );
 
 -- Create sightings table
 CREATE TABLE sightings (
     sighting_id SERIAL PRIMARY KEY,
-    ranger_id INT REFERENCES rangers (ranger_id) ON DELETE CASCADE,
-    species_id INT REFERENCES species (species_id) ON DELETE CASCADE,
-    sighting_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ranger_id INT REFERENCES rangers (ranger_id) ON DELETE CASCADE NOT NULL,
+    species_id INT REFERENCES species (species_id) ON DELETE CASCADE NOT NULL,
+    sighting_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     location VARCHAR(100) NOT NULL,
     notes TEXT
 );
@@ -44,8 +37,7 @@ VALUES (
     (
         'Carol King',
         'Mountain Range'
-    ),
-    ('Derek Fox', 'Coastal Plains');
+    );
 
 -- Insert data into species table
 INSERT INTO

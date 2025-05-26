@@ -13,7 +13,7 @@ SELECT * FROM sightings WHERE location LIKE '%Pass%';
 -- Problem 4: List rangers with total sightings
 SELECT r.name, COUNT(s.sighting_id) AS total_sightings
 FROM rangers r
-    LEFT JOIN sightings s ON r.ranger_id = s.ranger_id
+    JOIN sightings s ON r.ranger_id = s.ranger_id
 GROUP BY
     r.name;
 
@@ -41,9 +41,12 @@ LIMIT 2;
 -- Problem 7: Update species discovered before 1800 to 'Historic'
 UPDATE species
 SET
-    conservation_status = 'Historic'
+    "conservation_status" = 'Historic'
 WHERE
-    discovery_date < '1800-01-01';
+    EXTRACT(
+        YEAR
+        FROM discovery_date
+    ) < 1800;
 
 -- Problem 8: Label sighting times as Morning, Afternoon, or Evening
 SELECT
