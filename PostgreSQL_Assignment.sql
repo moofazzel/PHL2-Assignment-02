@@ -1,5 +1,3 @@
-SELECT * FROM sightings;
-
 -- Problem 1: Register a new ranger
 INSERT INTO
     rangers (name, region)
